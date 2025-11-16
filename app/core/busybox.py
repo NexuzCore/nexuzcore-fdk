@@ -7,7 +7,7 @@ from utils.load import load_config
 from utils.download import download_file, extract_archive
 from utils.execute import run_command_live, run_command
 
-from core.logger import success, info, warning, error
+from core.logger import success, info, warning, error, start, stop, pause, install
 
 
 
@@ -15,6 +15,27 @@ DEFAULT_PATCH = {
     "CONFIG_TC": "n",           # TC deaktivieren
     "CONFIG_STATIC": "y",       # Optional: statisches Binary
 }
+
+
+def get_configs(args):
+    """ Loads the Busybox Configs , and return the variables with the loaded values"""
+    
+    info("Configuring: BusyBox - Buildsystem !.")
+    start("Loading Configs !. \n :::...::..:. ..:.::.. .")
+    
+    
+    config = load_config(Path("configs") / args.config)
+    version = config["version"]
+    urls = config.get("urls", {})
+    cross_compile = config.get("cross_compile", {})
+    extra_cfg = config.get("extra_config", {})
+    config_patches = config.get("config_patch", [])
+    src_dir_template = config["src_dir"]    
+    busybox_src_dir = Path(src_dir_template.format(version=version))
+    
+    success(f"Loaded Configs: {version}, {urls}, {extra_cfg}, {config_patches}, {busybox_src_dir} -> from -> {config}")
+    
+    return version, urls, cross_compile, extra_cfg, config_patches, busybox_src_dir
 
 
 def set_config_option(cfg_file: Path, key: str, value: str):
@@ -46,6 +67,7 @@ def parse_patch_list(patch_list):
 
 def patch_config(busybox_src_dir: Path, patch_options: dict):
     """Patched die .config Datei mit den gegebenen Optionen"""
+    start("Patching BusyBox's - '.config' - Configuration File !.")
     cfg_file = busybox_src_dir / ".config"
     if not cfg_file.exists():
         raise FileNotFoundError(f".config nicht gefunden in {busybox_src_dir}")

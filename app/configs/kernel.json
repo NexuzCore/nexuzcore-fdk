@@ -1,0 +1,22 @@
+{
+    "x86_64": {
+        "repository": "https://git.kernel.org/",
+        "defconfig": "x86_64_defconfig",
+        "modules": {
+            "kernel": true,
+            "dtbs": true,
+            "modules": true
+        },
+        "output_dir": "{kernel_dir}"
+    },
+    "arm64": {
+        "repository": "https://github.com/raspberrypi/linux",
+        "defconfig": "bcm2712_defconfig",
+        "modules": {
+            "kernel": true,
+            "dtbs": true,
+            "modules": true
+        },
+        "output_dir": "{kernel_dir}"
+    }
+}

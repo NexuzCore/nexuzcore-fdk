@@ -1,0 +1,5 @@
+{
+  "name": "meson",
+  "source": "pacman",
+  "packages": ["meson"]
+}

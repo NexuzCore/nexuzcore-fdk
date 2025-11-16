@@ -1,0 +1,8 @@
+venv
+.env
+
+.backups
+dist/*
+build/*
+work/*
+__pycache__

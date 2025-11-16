@@ -1,0 +1,5 @@
+{
+  "name": "nano",
+  "source": "pacman",
+  "packages": ["nano"]
+}

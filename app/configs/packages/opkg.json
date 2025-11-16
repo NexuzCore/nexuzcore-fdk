@@ -1,0 +1,7 @@
+{
+  "name": "opkg",
+  "version": "2025.11",
+  "urls": ["https://git.yoctoproject.org/opkg.git"],
+  "deps": [],
+  "configure": []
+}
